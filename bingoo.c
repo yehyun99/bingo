@@ -1,39 +1,42 @@
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <time.h> 
+#define N 5
+#define max 25
 
-int main(void) 
-{ 
-int num[10]; 
-int i=0, j,a=0; 
-srand((int)time(NULL)); 
-while(i<10) 
-{	
-num[i]=rand()%10; 
+int main(void)
+{
+	int same1, same2;		//중복을 확인시켜줄 변수  
+	int line[max];			//한줄로 우선 배열을 만듦 
+	srand(time(NULL));
 
-while(1) 
-{ 
-for(j=0 ; j<i ;j++) 
-{ 
-while(num[i]==num[j]) 
-num[i]=rand()%10;	
-} 
-for(j=0 ; j<i ; j++) 
-{ 
-if(num[i] != num[j]) 
-a++;	
-}	
-if(a==(i)) 
-break; 
+	for (same1 = 0; same1 < max; same1++)
+	{
+		line[same1] = rand() % max + 1;   
+	}
+	 
+	for (same1 = 0; same1 < max; same1++)		//중복을 찾아주는 반복문 
+	{
+		for (same2 = 0; same2 < max; same2++)		//same1이 0일때는 통과. 
+		{
+		  restart:									//goto again을만나면 다시 돌아옴. 
+			if (same1 != same2)
+			{
+				if (line[same1] == line[same2])
+				{
+					line[same1] = rand() % max + 1;
+					same1--;						//다시 뽑았으니 다시 중복확인.  
+					goto restart;
+				}
+			}
+		}											//다르면 for문 계속 진행 
+	
+	}   
+	for (same1 = 0; same1 < max; same1++)
+	{ 
+		printf("%d ", line[same1]);
+	} 
 
-a=0;	
-} 
-i++; 
-}	
-
-for(i=0 ; i<10 ; i++) 
-{ 
-printf("%d!", num[i]); 
-}	
-return 0;	
 }
+
+
