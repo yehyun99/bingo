@@ -3,6 +3,11 @@
 #include <time.h> 
 #define N 5
 #define max 25
+int initiate_bingo();
+int print_bingo();
+int one_two();
+int plus;
+ 
 
 int main(void)
 {
@@ -32,11 +37,38 @@ int main(void)
 		}											//다르면 for문 계속 진행 
 	
 	}   
-	for (same1 = 0; same1 < max; same1++)
-	{ 
-		printf("%d ", line[same1]);
-	} 
+
+	
+	int bingo[N][N]={{0},{0}};
+	
+	int one;
+	int two;
+		for (one=0;one<N;one++)
+		{
+			for (two=0;two<N;two++)
+			{
+				
+				
+				if(one==0)
+				{
+				int	plus=0;
+				}
+				bingo[one][two]=line[plus];
+				
+				printf("%3d ",bingo[one][two]);
+				
+				plus++;
+			}
+				printf("\n");
+		}
+		
+			
+	
+	
+	
 	return 0;
 }
+
+
 
 
