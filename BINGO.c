@@ -3,16 +3,26 @@
 #include <time.h> 
 #define N 5
 #define max 25
-int initiate_bingo();
+void initiate_bingo();
 int print_bingo();
 int one_two();
 int plus;
- 
+int user_line[max];
+int user_bingo[N][N];
+
+
+
+
 
 int main(void)
-{
+{	
+	int user_bingo[N][N];
+	initiate_bingo(user_bingo[N][N]);
+	
+	void initiate_bingo(int bingo[N][N])
+	{
+	int line[max];
 	int same1, same2;		//중복을 확인시켜줄 변수  
-	int line[max];			//한줄로 우선 배열을 만듦 
 	srand(time(NULL));
 
 	for (same1 = 0; same1 < max; same1++)
@@ -39,7 +49,7 @@ int main(void)
 	}   
 
 	
-	int bingo[N][N]={{0},{0}};
+
 	
 	int one;
 	int two;
@@ -49,7 +59,7 @@ int main(void)
 			{
 				
 				
-				if(one==0)
+				if(one==0)							//시작할때만 0으로 시작해서 N^2까지 1차원을 명시 
 				{
 				int	plus=0;
 				}
@@ -62,12 +72,15 @@ int main(void)
 				printf("\n");
 		}
 		
-			
+	}
 	
 	
 	
 	return 0;
 }
+
+
+
 
 
 
