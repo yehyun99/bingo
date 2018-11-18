@@ -3,32 +3,24 @@
 #include <time.h> 
 #define N 5
 #define max 25
-void initiate_bingo();
-int print_bingo();
+int initiate_bingo();
+void print_bingo();
 int one_two();
+int get_number_byMe();
+int get_number_byCom();
+int process_bingo();
 int plus;
 int user_line[max];
 int computer_bingo[N][N];
 int user_bingo[N][N];
 
-void initiate_bingo(int bingo[N][N])
+int initiate_bingo(int bingo[N][N])
 	{
-	int line[max];
-	int same1, same2;		//중복을 확인시켜줄 변수  
+	
+	int line[max]={0};
+	int same1=0, same2=0;		//중복을 확인시켜줄 변수  
 	srand(time(NULL));
-	int two=0;
-	
-	while(two<2)
-	{
-	
-		if(two==0)
-		{
-			printf("<나의 빙고판>\n");
-		}
-		else if(two==1)
-		{
-			printf("<컴퓨터의 빙고판>\n");
-		}
+
 	for (same1 = 0; same1 < max; same1++)
 	{
 		line[same1] = rand() % max + 1;   
@@ -52,11 +44,8 @@ void initiate_bingo(int bingo[N][N])
 	
 	}   
 
-	
-
-	
-	int one;
-	int two;
+	int one=0;
+	int two=0;
 		for (one=0;one<N;one++)
 		{
 			for (two=0;two<N;two++)
@@ -76,21 +65,41 @@ void initiate_bingo(int bingo[N][N])
 				printf("\n");
 		}
 			
-		two++;
-	}
-	return;
+	
+	return bingo[N][N];
 }
 	
+
+void print_bingo(int user_bingo[N][N],int computer_bingo[N][N])
+{
+	printf("<나의 빙고판>\n");
+	initiate_bingo(user_bingo);
+	printf("<컴퓨터의 빙고판>\n");
+	initiate_bingo(computer_bingo);
+	return;
+}
+int get_number_byMe();
+int get_number_byCom();
+int process_bingo();
+
+
+
+
+
+
 
 
 int main(void)
 {	
 	int user_bingo[N][N]={{0},{0}};
 	int computer_bingo[N][N]={{0},{0}};
-
+	rand() % max + 1;
 	
-
+	printf("<나의 빙고판>\n");
 	initiate_bingo(user_bingo);
+	printf("<컴퓨터의 빙고판>\n");
+	initiate_bingo(user_bingo);
+	
 
 
 	
