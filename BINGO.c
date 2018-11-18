@@ -46,7 +46,7 @@ int initiate_bingo(int bingo[N][N])		//콜바이레퍼런스 사용해야하나..?
 
 	int one=0;
 	int two=0;
-		for (one=0;one<N;one++)						// 배열속 숫자를 찾아서 비교 
+		for (one=0;one<N;one++)					
 		{
 			for (two=0;two<N;two++)
 			{
@@ -70,10 +70,10 @@ int initiate_bingo(int bingo[N][N])		//콜바이레퍼런스 사용해야하나..?
 }
 	
 
-void print_bingo(int bingo[N][N])
+void print_bingo(int bingo[N][N])			//빙고테이블 현재 상황을 화면에 출력 
 {
 	printf("<나의 빙고판>\n");
-	initiate_bingo(user_bingo);
+	initiate_bingo(bingo);
 
 	return;
 }
@@ -90,30 +90,36 @@ int get_number_byMe(int bingo[N][N])
 		
 	
 	
-		for(one=0;one<N;one++)
+		for(one=0;one<N;one++)				// 배열속 숫자를 찾아서 비교 
 		{
 			for(two=0;two<N;two++)
 			{
 				if(bingo[one][two]==user_number)
 				{
 					bingo[one][two]=-1;
-					plus++;
+					plus++;					//값이 plus가 되면 while을 빠져나감. 
 				}
 			
 			}
 		}
 		if(plus==0)
 		{
-				printf("잘못된 숫자입니다.\n숫자(1~n^2)를 다시 입력하세요:");
+				printf("잘못된 숫자입니다.\n숫자(1~n^2)를 다시 입력하세요:");			//입력 숫자가 범위 밖에 있거나 중복된 경우 다시 반복. 
 				scanf("%d",&user_number);
 		}
 	}
 	return;
 }
 int get_number_byCom();
-int process_bingo();
-
-
+int process_bingo(int bingo[N][N])			//빙고 테이블이 채운 가로/세로/대각선 줄 수를 계산하여 반환 
+{
+	int flag_v=0;			//세로방향 빙고를 찾는 깃발 
+	int flag_h=0;			//가로방향 빙고를 찾는 깃발 
+	int flag_cl=0;			//대각선 오른쪽 '/' 빙고를 찾는 깃발 
+	int flag_cr=0;			//대각선 왼쪽 '\' 빙고를 찾는 깃발 
+	
+	
+} 
 
 
 
