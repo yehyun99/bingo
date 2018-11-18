@@ -3,7 +3,7 @@
 #include <time.h> 
 #define N 5
 #define max 25
-void initiate_bingo();
+int initiate_bingo();
 int print_bingo();
 int one_two();
 int plus;
@@ -11,15 +11,7 @@ int user_line[max];
 int user_bingo[N][N];
 
 
-
-
-
-int main(void)
-{	
-	int user_bingo[N][N];
-	initiate_bingo(user_bingo[N][N]);
-	
-	void initiate_bingo(int bingo[N][N])
+int initiate_bingo(int bingo[N][N])
 	{
 	int line[max];
 	int same1, same2;		//중복을 확인시켜줄 변수  
@@ -71,9 +63,24 @@ int main(void)
 			}
 				printf("\n");
 		}
-		
+		return 0;
 	}
 	
+
+
+int main(void)
+{	
+	int user_bingo[N][N];
+
+	
+	printf("<나의 빙고판>\n");
+	initiate_bingo(user_bingo);
+	
+	printf("<상대방의 빙고판>\n");
+	initiate_bingo(user_bingo);
+	
+	
+
 	
 	
 	return 0;
