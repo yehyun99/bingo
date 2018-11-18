@@ -14,7 +14,7 @@ int user_line[max];
 int computer_bingo[N][N];
 int user_bingo[N][N];
 
-int initiate_bingo(int bingo[N][N])
+int initiate_bingo(int bingo[N][N])		//콜바이레퍼런스 사용해야하나..? 
 	{
 	
 	int line[max]={0};
@@ -46,7 +46,7 @@ int initiate_bingo(int bingo[N][N])
 
 	int one=0;
 	int two=0;
-		for (one=0;one<N;one++)
+		for (one=0;one<N;one++)						// 배열속 숫자를 찾아서 비교 
 		{
 			for (two=0;two<N;two++)
 			{
@@ -70,15 +70,46 @@ int initiate_bingo(int bingo[N][N])
 }
 	
 
-void print_bingo(int user_bingo[N][N],int computer_bingo[N][N])
+void print_bingo(int bingo[N][N])
 {
 	printf("<나의 빙고판>\n");
 	initiate_bingo(user_bingo);
-	printf("<컴퓨터의 빙고판>\n");
-	initiate_bingo(computer_bingo);
+
 	return;
 }
-int get_number_byMe();
+int get_number_byMe(int bingo[N][N])
+{
+	int user_number;
+	int plus=0;
+	int one,two; 
+	
+	while(plus!=1)
+	{
+		printf("숫자(1~n^2)를 입력하세요:");
+		scanf("%d",&user_number);
+		
+	
+	
+		for(one=0;one<N;one++)
+		{
+			for(two=0;two<N;two++)
+			{
+				if(bingo[one][two]==user_number)
+				{
+					bingo[one][two]=-1;
+					plus++;
+				}
+			
+			}
+		}
+		if(plus==0)
+		{
+				printf("잘못된 숫자입니다.\n숫자(1~n^2)를 다시 입력하세요:");
+				scanf("%d",&user_number);
+		}
+	}
+	return;
+}
 int get_number_byCom();
 int process_bingo();
 
@@ -97,9 +128,8 @@ int main(void)
 	
 	printf("<나의 빙고판>\n");
 	initiate_bingo(user_bingo);
-	printf("<컴퓨터의 빙고판>\n");
-	initiate_bingo(user_bingo);
-	
+	get_number_byMe(user_bingo);
+	print_bingo(user_bingo);
 
 
 	
