@@ -71,8 +71,6 @@ void initiate_bingo(int bingo[N][N])      //콜바이레퍼런스 사용해야하나..?
    
    return ;
 }
-   
-
 void print_bingo(int user_bingo[N][N], int computer_bingo[N][N])         //빙고테이블 현재 상황을 화면에 출력 
 {	
 	int one,two=0;
@@ -217,7 +215,6 @@ int main(void)
    
    while(1)
    {
-   
    get_number_byMe(user_bingo, computer_bingo);
    print_bingo(user_bingo, computer_bingo);
 
@@ -237,6 +234,7 @@ int main(void)
 		
    count_u=process_bingo(user_bingo, sum,count_u);
    printf("당신의 빙고는 %d개 입니다.\n",count_u);
+   
         if(count_u==M)
           break;
    count_c=process_bingo(computer_bingo, sum,count_c);
@@ -245,8 +243,6 @@ int main(void)
    		  break;
    
    }
-   
-
    return 0;
 }
 
