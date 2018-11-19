@@ -1,10 +1,12 @@
+
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <time.h> 
-#define N 5			//N*N빙고 
-#define max 25		//N*N
+#define N 2			//N*N빙고 
+#define max 4		//N*N
 #define LINE 12 		//빙고 줄을 세기 위한 라인 2*N(가로,세로)+2(대각선) 
-int initiate_bingo();
+#define M 4 
+void initiate_bingo();
 void print_bingo();
 int one_two();
 int get_number_byMe();
@@ -15,7 +17,7 @@ int user_line[max];
 int computer_bingo[N][N];
 int user_bingo[N][N];
 
-int initiate_bingo(int bingo[N][N])		//콜바이레퍼런스 사용해야하나..? 
+void initiate_bingo(int bingo[N][N])		//콜바이레퍼런스 사용해야하나..? 
 	{
 	
 	int line[max]={0};
@@ -67,113 +69,24 @@ int initiate_bingo(int bingo[N][N])		//콜바이레퍼런스 사용해야하나..?
 		}
 			
 	
-	return bingo[N][N];
+	return ;
 }
 	
-
-void print_bingo(int bingo[N][N])			//빙고테이블 현재 상황을 화면에 출력 
-{
-	printf("<나의 빙고판>\n");
-	initiate_bingo(bingo);
-
-	return;
-}
-int get_number_byMe(int bingo[N][N])
-{
-	int user_number;
-	int plus=0;
-	int one,two; 
-	
-	while(plus!=1)
-	{
-		printf("숫자(1~n^2)를 입력하세요:");
-		scanf("%d",&user_number);
-		
-	
-	
-		for(one=0;one<N;one++)				// 배열속 숫자를 찾아서 비교 
-		{
-			for(two=0;two<N;two++)
-			{
-				if(bingo[one][two]==user_number)
-				{
-					bingo[one][two]=0;
-					plus++;					//값이 plus가 되면 while을 빠져나감. 
-				}
-			
-			}
-		}
-		if(plus==0)
-		{
-				printf("잘못된 숫자입니다.\n숫자(1~n^2)를 다시 입력하세요:");			//입력 숫자가 범위 밖에 있거나 중복된 경우 다시 반복. 
-				scanf("%d",&user_number);
-		}
-	}
-	return;
-}
-int get_number_byCom();
-int process_bingo(int bingo[N][N])			//빙고 테이블이 채운 가로/세로/대각선 줄 수를 계산하여 반환 
-{
-	int flag_v=0;			//세로방향 빙고를 찾는 깃발 
-	int flag_h=0;			//가로방향 빙고를 찾는 깃발 
-	int flag_cl=0;			//대각선 오른쪽 '/' 빙고를 찾는 깃발 
-	int flag_cr=0;			//대각선 왼쪽 '\' 빙고를 찾는 깃발 
-	int one,two=0;			//2중 for문을 돌리기 위한 변수 
-	int count=0;			//line의 값을 지정하기 위한 변수 
-	
-	for(one=0;one<N;one++)
-	{
-		for(two=0;two<N;two++)
-		{
-			if(bingo[one][two]==0)
-			{
-				flag_v++;
-			}
-			if(bingo[two][one]==0)
-			{
-				flag_h++;
-			}
-		}
-	}
-	if(flag_v==max)
-	{
-		count++;
-	}
-	if(flag_h==max)
-	{
-		count++;
-	}
-	
-} 
-
-
-
-
-
-
 int main(void)
 {	
 	int user_bingo[N][N]={{0},{0}};
 	int computer_bingo[N][N]={{0},{0}};
+	int sum[LINE];
+	int count=0;
 	rand() % max + 1;
 	
 	printf("<나의 빙고판>\n");
 	initiate_bingo(user_bingo);
-	get_number_byMe(user_bingo);
-	print_bingo(user_bingo);
-
-
-	
-	
-
-	
+	printf("\n\n");
+	printf("<컴퓨터의 빙고판>\n");
+	initiate_bingo(user_bingo);
 	
 	return 0;
 }
-
-
-
-
-
 
 

@@ -1,26 +1,27 @@
+
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <time.h> 
-#define N 5
-#define max 25
-#include <stdio.h> 
-#include <stdlib.h> 
-#include <time.h> 
-#define N 5
-#define max 25
-int initiate_bingo();
-int print_bingo();
+#define N 2			//N*N빙고 
+#define max 4		//N*N
+#define LINE 12 		//빙고 줄을 세기 위한 라인 2*N(가로,세로)+2(대각선) 
+#define M 4 
+void initiate_bingo();
+void print_bingo();
 int one_two();
+int get_number_byMe();
+int get_number_byCom();
+int process_bingo();
 int plus;
+int user_line[max];
+int computer_bingo[N][N];
+int user_bingo[N][N];
 
-
-
-
-
-int main(void)
-{
-	int same1, same2;		//중복을 확인시켜줄 변수  
-	int line[max];			//한줄로 우선 배열을 만듦 
+void initiate_bingo(int bingo[N][N])		//콜바이레퍼런스 사용해야하나..? 
+	{
+	
+	int line[max]={0};
+	int same1=0, same2=0;		//중복을 확인시켜줄 변수  
 	srand(time(NULL));
 
 	for (same1 = 0; same1 < max; same1++)
@@ -46,12 +47,9 @@ int main(void)
 	
 	}   
 
-	
-	int bingo[N][N]={{0},{0}};						//1차원 배열을 2차원 배열로 바꾸기 
-	
-	int one;
-	int two;
-		for (one=0;one<N;one++)
+	int one=0;
+	int two=0;
+		for (one=0;one<N;one++)					
 		{
 			for (two=0;two<N;two++)
 			{
@@ -69,17 +67,27 @@ int main(void)
 			}
 				printf("\n");
 		}
-		
-		
-		
-		
 			
 	
+	return ;
+}
 	
+int main(void)
+{	
+	int user_bingo[N][N]={{0},{0}};
+	int computer_bingo[N][N]={{0},{0}};
+	int sum[LINE];
+	int count=0;
+	rand() % max + 1;
+	
+	printf("<나의 빙고판>\n");
+	initiate_bingo(user_bingo);
+	printf("\n\n");
+	printf("<컴퓨터의 빙고판>\n");
+	initiate_bingo(user_bingo);
 	
 	return 0;
 }
-
 
 
 
