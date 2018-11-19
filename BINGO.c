@@ -97,7 +97,7 @@ int get_number_byMe(int bingo[N][N])
 			{
 				if(bingo[one][two]==user_number)
 				{
-					bingo[one][two]=-1;
+					bingo[one][two]=0;
 					plus++;					//값이 plus가 되면 while을 빠져나감. 
 				}
 			
@@ -112,7 +112,7 @@ int get_number_byMe(int bingo[N][N])
 	return;
 }
 int get_number_byCom();
-int process_bingo(int bingo[N][N], int sum[LINE])			//빙고 테이블이 채운 가로/세로/대각선 줄 수를 계산하여 반환 
+int process_bingo(int bingo[N][N])			//빙고 테이블이 채운 가로/세로/대각선 줄 수를 계산하여 반환 
 {
 	int flag_v=0;			//세로방향 빙고를 찾는 깃발 
 	int flag_h=0;			//가로방향 빙고를 찾는 깃발 
@@ -121,13 +121,27 @@ int process_bingo(int bingo[N][N], int sum[LINE])			//빙고 테이블이 채운 가로/세
 	int one,two=0;			//2중 for문을 돌리기 위한 변수 
 	int count=0;			//line의 값을 지정하기 위한 변수 
 	
-	while(one<N)
+	for(one=0;one<N;one++)
 	{
 		for(two=0;two<N;two++)
 		{
-			sum[count]=0;
-			
+			if(bingo[one][two]==0)
+			{
+				flag_v++;
+			}
+			if(bingo[two][one]==0)
+			{
+				flag_h++;
+			}
 		}
+	}
+	if(flag_v==max)
+	{
+		count++;
+	}
+	if(flag_h==max)
+	{
+		count++;
 	}
 	
 } 
