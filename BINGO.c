@@ -1,10 +1,10 @@
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <time.h> 
-#define N 2         //N*N빙고 
-#define max 4      //N*N
-#define LINE 12       //빙고 줄을 세기 위한 라인 2*N(가로,세로)+2(대각선) 
-#define M 4 
+#define N 4         //N*N빙고 
+#define max 16      //N*N
+#define LINE 10       //빙고 줄을 세기 위한 라인 2*N(가로,세로)+2(대각선) 
+#define M 3
 void initiate_bingo();
 void print_bingo();
 int one_two();
@@ -21,7 +21,7 @@ void initiate_bingo(int bingo[N][N])      //콜바이레퍼런스 사용해야하나..?
    
    int line[max]={0};
    int same1=0, same2=0;      //중복을 확인시켜줄 변수  
-   srand(time(NULL));
+
 
    for (same1 = 0; same1 < max; same1++)
    {
@@ -85,7 +85,7 @@ void print_bingo(int user_bingo[N][N], int computer_bingo[N][N])         //빙고�
 			}
    	printf("\n");
 	}
-	printf("<컴퓨터의 빙고판>\n");
+	printf("\n<컴퓨터의 빙고판>\n");
 	
 	for(one=0;one<N;one++)
 	{
@@ -162,10 +162,10 @@ void get_number_byCom(int user_bingo[N][N],int computer_bingo[N][N])
     } 
     return;
 }
-int process_bingo(int bingo[N][N], int sum[LINE])         //빙고 테이블이 채운 가로/세로/대각선 줄 수를 계산하여 반환 
+int process_bingo(int bingo[N][N], int sum[LINE], int count)         //빙고 테이블이 채운 가로/세로/대각선 줄 수를 계산하여 반환 
 {
    int one,two=0;         //2중 for문을 돌리기 위한 변수 
-   int count=0;           //line의 값을 지정하기 위한 변수 
+   count=0;           //line의 값을 지정하기 위한 변수 
 
    for(one=0;one<LINE;one++)
    
@@ -173,22 +173,22 @@ int process_bingo(int bingo[N][N], int sum[LINE])         //빙고 테이블이 채운 �
    
       for(one=0;one<N;one++)
       {
-      for(two=0;two<N;two++)
-         {
-            sum[one] += bingo[one][two];
-            sum[one+N] += bingo[two][two];
-         }
-            sum[LINE-1] += bingo[one][N-1-one];      //대각선 오른쪽 '/' 빙고를 찾는 깃발 
-            sum[LINE] += bingo[one][one];         //대각선 왼쪽 '\' 빙고를 찾는 깃발 
+      		for(two=0;two<N;two++)
+         	{
+            sum[one] = sum[one]+bingo[one][two];
+            sum[one+N] = sum[one+N]+bingo[two][one];
+         	}
+        sum[LINE-1] += bingo[one][N-one-1];      //대각선 오른쪽 '/' 빙고를 찾는 깃발 
+        sum[LINE] += bingo[one][one];            //대각선 왼쪽 '\' 빙고를 찾는 깃발 
             
       }
       for(one=0;one<LINE;one++)
-      {
+      
          if(sum[one]==0)
-         {
+        
             count++;
-         }
-      }
+    
+      
       return count;
    }
    
@@ -201,7 +201,7 @@ int main(void)
    int user_bingo[N][N]={{0},{0}};
    int computer_bingo[N][N]={{0},{0}};
    int sum[LINE];
-   int count=0;
+   int count_u,count_c=0;
    rand() % max + 1;
    
    printf("<나의 빙고판>\n");
@@ -210,26 +210,33 @@ int main(void)
    printf("<컴퓨터의 빙고판>\n");
    initiate_bingo(computer_bingo);
    
-   while(count<M)
+   while(1)
    {
    
    get_number_byMe(user_bingo, computer_bingo);
    print_bingo(user_bingo, computer_bingo);
 
-   count=process_bingo(user_bingo, sum);
-   printf("당신의 빙고는 %d개 입니다.",count);
-      if(count<M)
+   count_u=process_bingo(user_bingo, sum, count_u);
+   printf("당신의 빙고는 %d개 입니다.\n",count_u-1);		//왜 자꾸 1이 나오지... 
+        if(count_u==M+1)
           break;
-   count=process_bingo(computer_bingo, sum);
-      if(count<M)
+   count_c=process_bingo(computer_bingo, sum,count_c);
+   printf("컴퓨터의 빙고는 %d개 입니다.\n",count_c-1);
+        if(count_c==M+1)
           break;
+          
+	printf("/n/n");
    get_number_byCom(user_bingo, computer_bingo);
    print_bingo(user_bingo,computer_bingo);
-
-   count=process_bingo(user_bingo, sum);
-      if(count<M)
+		
+   count_u=process_bingo(user_bingo, sum,count_u-1);
+   printf("당신의 빙고는 %d개 입니다.\n",count_u-1);
+        if(count_u==M+1)
           break;
-   count=process_bingo(computer_bingo, sum);
+   count_c=process_bingo(computer_bingo, sum,count_c-1);
+    printf("컴퓨터의 빙고는 %d개 입니다.\n",count_c-1);
+   		if(count_c==M+1)
+   		  break;
    
    }
    
