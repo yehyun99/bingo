@@ -1,8 +1,9 @@
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <time.h> 
-#define N 5
-#define max 25
+#define N 5			//N*N빙고 
+#define max 25		//N*N
+#define LINE 12 		//빙고 줄을 세기 위한 라인 2*N(가로,세로)+2(대각선) 
 int initiate_bingo();
 void print_bingo();
 int one_two();
@@ -111,13 +112,23 @@ int get_number_byMe(int bingo[N][N])
 	return;
 }
 int get_number_byCom();
-int process_bingo(int bingo[N][N])			//빙고 테이블이 채운 가로/세로/대각선 줄 수를 계산하여 반환 
+int process_bingo(int bingo[N][N], int sum[LINE])			//빙고 테이블이 채운 가로/세로/대각선 줄 수를 계산하여 반환 
 {
 	int flag_v=0;			//세로방향 빙고를 찾는 깃발 
 	int flag_h=0;			//가로방향 빙고를 찾는 깃발 
 	int flag_cl=0;			//대각선 오른쪽 '/' 빙고를 찾는 깃발 
 	int flag_cr=0;			//대각선 왼쪽 '\' 빙고를 찾는 깃발 
+	int one,two=0;			//2중 for문을 돌리기 위한 변수 
+	int count=0;			//line의 값을 지정하기 위한 변수 
 	
+	while(one<N)
+	{
+		for(two=0;two<N;two++)
+		{
+			sum[count]=0;
+			
+		}
+	}
 	
 } 
 
