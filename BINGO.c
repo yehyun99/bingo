@@ -4,7 +4,7 @@
 #define N 5         //N*N빙고 
 #define max 25      //N*N
 #define LINE 12       //빙고 줄을 세기 위한 라인 2*N(가로,세로)+2(대각선) 
-#define M 5
+#define M 4
 void initiate_bingo();
 void print_bingo();
 int one_two();
@@ -46,7 +46,7 @@ void initiate_bingo(int bingo[N][N])      //초기 빙수 배정과 출력
    
    }   
 
-   int one=0;
+   int one=0;				//1차원에서 2차원 배열로 바꾸기 위한 변수 설정. 
    int two=0;
    plus=0;
       for (one=0;one<N;one++)               
@@ -54,11 +54,6 @@ void initiate_bingo(int bingo[N][N])      //초기 빙수 배정과 출력
          for (two=0;two<N;two++)
          {
             
-            
-           // if(one==0)                     //시작할때만 0으로 시작해서 N^2까지 1차원을 명시 
-            //{
-            //int   plus=0;
-            //}
             bingo[one][two]=line[plus];
             
             printf("%3d ",bingo[one][two]);
@@ -97,7 +92,7 @@ void print_bingo(int user_bingo[N][N], int computer_bingo[N][N])         //빙고�
 
    return;
 }
-void get_number_byMe(int user_bingo[N][N], int computer_bingo[N][N])
+void get_number_byMe(int user_bingo[N][N], int computer_bingo[N][N])		//사용자가 숫자 입력하는 함수. 
 {
    int user_number;
    plus=0;
@@ -134,7 +129,7 @@ void get_number_byMe(int user_bingo[N][N], int computer_bingo[N][N])
    }
    return;
 }
-void get_number_byCom(int user_bingo[N][N],int computer_bingo[N][N])
+void get_number_byCom(int user_bingo[N][N],int computer_bingo[N][N])			//컴퓨터가 숫자를 입력하는 함수. 
 {
    int flag=0;
    int count,one,two=0;
@@ -149,14 +144,14 @@ void get_number_byCom(int user_bingo[N][N],int computer_bingo[N][N])
             if(user_bingo[one][two]==count)
             {   
                printf("==> 컴퓨터는 %d를(을) 선택했습니다.",count);
-               user_bingo[one][two]=0;
+               user_bingo[one][two]=0;		//빙고 테이블을 수정(사용자) 
                
                flag++;               //값이 plus가 되면 while을 빠져나감.
 			    
             }
             if(computer_bingo[one][two]==count)
             {
-            	computer_bingo[one][two]=0;
+            	computer_bingo[one][two]=0;		//빙고테이블을 수정(컴퓨터) 
 			}
          
          }
@@ -172,22 +167,22 @@ int process_bingo(int bingo[N][N], int sum[LINE], int count)         //빙고 테이
 
    for(one=0;one<LINE;one++)
    
-      sum[one]=0;
+      sum[one]=0;			//초기화 
    
       for(one=0;one<N;one++)
       {
       		for(two=0;two<N;two++)
          	{
-            sum[one] += bingo[one][two];
-            sum[one+N] += bingo[two][one];
+            sum[one] += bingo[one][two];		//0~N-1까지 세로 
+            sum[one+N] += bingo[two][one];		//N~2N-1까지 가로 
          	}
-        sum[LINE-2] += bingo[one][N-one-1];      //대각선 오른쪽 '/' 빙고를 찾는 깃발 
-        sum[LINE-1] += bingo[one][one];            //대각선 왼쪽 '\' 빙고를 찾는 깃발 
+        sum[LINE-2] += bingo[one][N-one-1];      //대각선 오른쪽 '/'  
+        sum[LINE-1] += bingo[one][one];            //대각선 왼쪽 '\' 
             
       }
       for(one=0;one<LINE;one++)
       
-         if(sum[one]==0)
+         if(sum[one]==0)			//한줄이 모두 0이다. 
         
             count++;
     
@@ -213,43 +208,43 @@ int main(void)
    while(1)		//break로 나가기 전까지 무한 반복 
    {
 	get_number_byMe(user_bingo, computer_bingo);		//사용자의 숫자 입력 
-		turn++;
+		turn++;											//몇회 시도인지 세기. 
 	print_bingo(user_bingo, computer_bingo);			//빙고 출력(컴퓨터,사용자 둘다) 
-	count_u=process_bingo(user_bingo, sum, count_u);
+	count_u=process_bingo(user_bingo, sum, count_u);		//빙고수 세기. 
 	printf("-> 당신의 빙고는 %d개 입니다.\n",count_u);		
 	count_c=process_bingo(computer_bingo, sum,count_c);
 	printf("-> 컴퓨터의 빙고는 %d개 입니다.\n",count_c);
-        if(count_u==M)
+        if(count_u==M)										//계산 후 빠져나갈 지 결정 (빙고 M개 성공시) 
 			break;
         if(count_c==M)
             break;
           
 	printf("\n\n");
-	get_number_byCom(user_bingo, computer_bingo);
+	get_number_byCom(user_bingo, computer_bingo);		//컴퓨터의 숫자 입력 
 	printf("\n\n");
-	print_bingo(user_bingo,computer_bingo);
+	print_bingo(user_bingo,computer_bingo);				//빙고 출력 
 		
-	count_u=process_bingo(user_bingo, sum,count_u);
+	count_u=process_bingo(user_bingo, sum,count_u);		//빙고수 세기 
 	printf("-> 당신의 빙고는 %d개 입니다.\n",count_u);
 
 	count_c=process_bingo(computer_bingo, sum,count_c);
     printf("-> 컴퓨터의 빙고는 %d개 입니다.\n",count_c);
-        if(count_u==M)
+        if(count_u==M)										//계산 후 빠져나갈 지 결정 (빙고 M개 성공시) 
           break;
    		if(count_c==M)
    		  break;
    
    }
    printf("<<<< *%d번째 턴에서 승부가 났습니다* >>>>\n",turn);
-   if(count_u==count_c)
+   if(count_u==count_c)			//무승부 
    {
    		printf("무승부 입니다.");
    }
-   else if(count_u>count_c)
+   else if(count_u>count_c)			//사용자 승리 
    {
    		printf("당신이 승리하였습니다:)");
    }
-   else
+   else		//컴퓨터 승리 
    {
    		printf("컴퓨터가 승리하였습니다:(");
    }
