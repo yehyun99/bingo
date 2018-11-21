@@ -4,7 +4,7 @@
 #define N 5         //N*N빙고 
 #define max 25      //N*N
 #define LINE 12       //빙고 줄을 세기 위한 라인 2*N(가로,세로)+2(대각선) 
-#define M 4
+#define M 4			  //M빙고를 먼저 만들시 게임 종료 
 void initiate_bingo();
 void print_bingo();
 int one_two();
